@@ -78,7 +78,7 @@ public class CoraFluidJsonTest {
     }
 
     @Test
-    public void testCreateGroupWithRepeatIdAtomicChildAndAttribute() throws FluidJsonException {
+    public void testCreateGroupWithRepeatIdAndAttribute() throws FluidJsonException {
         String coraDataAsText = CoraFluidJson.group("someName", "someRepeatId",
                 CoraFluidJson.attribute("someAttribute","someAttributeValue")).build().toString();
         String expected = "{\"repeatId\":\"someRepeatId\",\"children\":[],\"name\":\"someName\",\"attributes\":{\"someAttribute\":\"someAttributeValue\"}}";
@@ -108,4 +108,14 @@ public class CoraFluidJsonTest {
         String expected = "{\"repeatId\":\"someRepeatId\",\"children\":[],\"name\":\"someName\",\"attributes\":{\"someAttribute\":\"someAttributeValue\"}}";
         assertEquals(coraDataAsText, expected);
     }
+
+    @Test
+    public void testCreateGroupWithRepeatIdAtomicChildAndAttribute() throws FluidJsonException {
+        String coraDataAsText = CoraFluidJson.group("someName", "someRepeatId",
+                CoraFluidJson.atomic("childName", "childValue"),
+                CoraFluidJson.attribute("someAttribute","someAttributeValue")).build().toString();
+        String expected = "{\"repeatId\":\"someRepeatId\",\"children\":[{\"name\":\"childName\",\"value\":\"childValue\"}],\"name\":\"someName\",\"attributes\":{\"someAttribute\":\"someAttributeValue\"}}";
+        assertEquals(coraDataAsText, expected);
+    }
+
 }
