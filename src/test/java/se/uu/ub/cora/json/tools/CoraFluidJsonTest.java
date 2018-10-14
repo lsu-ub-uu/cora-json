@@ -71,8 +71,9 @@ public class CoraFluidJsonTest {
 
     @Test
     public void testCreateGroupWithAtomicChildAndAttribute() throws FluidJsonException {
-        String coraDataAsText = CoraFluidJson.group("someName", CoraFluidJson.atomic("someChildName", "someChildValue"),
-                CoraFluidJson.attribute("someAttribute","someAttributeValue")).build().toString();
+        String coraDataAsText = CoraFluidJson.group("someName",
+                CoraFluidJson.attribute("someAttribute","someAttributeValue"),
+                CoraFluidJson.atomic("someChildName", "someChildValue")).build().toString();
         String expected = "{\"children\":[{\"name\":\"someChildName\",\"value\":\"someChildValue\"}],\"name\":\"someName\",\"attributes\":{\"someAttribute\":\"someAttributeValue\"}}";
         assertEquals(coraDataAsText, expected);
     }
@@ -112,9 +113,47 @@ public class CoraFluidJsonTest {
     @Test
     public void testCreateGroupWithRepeatIdAtomicChildAndAttribute() throws FluidJsonException {
         String coraDataAsText = CoraFluidJson.group("someName", "someRepeatId",
-                CoraFluidJson.atomic("childName", "childValue"),
-                CoraFluidJson.attribute("someAttribute","someAttributeValue")).build().toString();
+                CoraFluidJson.attribute("someAttribute","someAttributeValue"),
+                CoraFluidJson.atomic("childName", "childValue")).build().toString();
         String expected = "{\"repeatId\":\"someRepeatId\",\"children\":[{\"name\":\"childName\",\"value\":\"childValue\"}],\"name\":\"someName\",\"attributes\":{\"someAttribute\":\"someAttributeValue\"}}";
+        assertEquals(coraDataAsText, expected);
+    }
+
+    @Test
+    public void testCreateGroupWithRepeatIdTwoChildrenAndAttribute() throws FluidJsonException {
+        String coraDataAsText = CoraFluidJson.group("someName", "someRepeatId",
+                CoraFluidJson.attribute("someAttribute","someAttributeValue"),
+                CoraFluidJson.atomic("childName", "childValue"),
+                CoraFluidJson.atomic("childSecondName", "childValue")).build().toString();
+        String expected = "{\"repeatId\":\"someRepeatId\",\"children\":[{\"name\":\"childName\",\"value\":\"childValue\"},{\"name\":\"childSecondName\",\"value\":\"childValue\"}],\"name\":\"someName\",\"attributes\":{\"someAttribute\":\"someAttributeValue\"}}";
+        assertEquals(coraDataAsText, expected);
+    }
+
+    @Test
+    public void testCreateGroupWithTwoChildrenAndAttribute() throws FluidJsonException {
+        String coraDataAsText = CoraFluidJson.group("someName",
+                CoraFluidJson.attribute("someAttribute","someAttributeValue"),
+                CoraFluidJson.atomic("childName", "childValue"),
+                CoraFluidJson.atomic("childSecondName", "childValue")).build().toString();
+        String expected = "{\"children\":[{\"name\":\"childName\",\"value\":\"childValue\"},{\"name\":\"childSecondName\",\"value\":\"childValue\"}],\"name\":\"someName\",\"attributes\":{\"someAttribute\":\"someAttributeValue\"}}";
+        assertEquals(coraDataAsText, expected);
+    }
+
+    @Test
+    public void testCreateGroupWithRepeatIdTwoChildren() throws FluidJsonException {
+        String coraDataAsText = CoraFluidJson.group("someName", "someRepeatId",
+                CoraFluidJson.atomic("childName", "childValue"),
+                CoraFluidJson.atomic("childSecondName", "childValue")).build().toString();
+        String expected = "{\"repeatId\":\"someRepeatId\",\"children\":[{\"name\":\"childName\",\"value\":\"childValue\"},{\"name\":\"childSecondName\",\"value\":\"childValue\"}],\"name\":\"someName\"}";
+        assertEquals(coraDataAsText, expected);
+    }
+
+    @Test
+    public void testCreateGroupWithTwoChildren() throws FluidJsonException {
+        String coraDataAsText = CoraFluidJson.group("someName",
+                CoraFluidJson.atomic("childName", "childValue"),
+                CoraFluidJson.atomic("childSecondName", "childValue")).build().toString();
+        String expected = "{\"children\":[{\"name\":\"childName\",\"value\":\"childValue\"},{\"name\":\"childSecondName\",\"value\":\"childValue\"}],\"name\":\"someName\"}";
         assertEquals(coraDataAsText, expected);
     }
 
