@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Uppsala University Library
+ * Copyright 2015, 2021 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -19,6 +19,8 @@
 
 package se.uu.ub.cora.json.parser.org;
 
+import java.util.regex.Pattern;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -32,6 +34,7 @@ import se.uu.ub.cora.json.parser.JsonValueType;
 public class OrgJsonParser implements JsonParser {
 
 	private static final String UNABLE_TO_PARSE_JSON_STRING = "Unable to parse json string";
+	private static final Pattern UNICODE_PATTERN = Pattern.compile("\\\\u([0-9A-Fa-f]{4})");
 
 	@Override
 	public JsonValue parseString(String jsonString) {
@@ -66,13 +69,25 @@ public class OrgJsonParser implements JsonParser {
 	}
 
 	private void validateEntireStringWasParsed(String jsonString, JsonValue jsonValue) {
-		String allWhitespace = "\\s";
-		String originalJsonWithoutWhitespace = jsonString.replaceAll(allWhitespace, "");
+		String originalJsonWithoutWhitespace = removeWiteSpaceAndUnescapeUnicodeFromString(
+				jsonString);
 		String recreatedJsonString = recreateJsonStringFromJsonValue(jsonValue);
-		String recreatedJsonWithoutWhitespace = recreatedJsonString.replaceAll(allWhitespace, "");
+		String recreatedJsonWithoutWhitespace = removeWiteSpaceAndUnescapeUnicodeFromString(
+				recreatedJsonString);
 		if (originalJsonWithoutWhitespace.length() != recreatedJsonWithoutWhitespace.length()) {
 			throw new JsonParseException("Unable to fully parse json string");
 		}
+	}
+
+	private String unescapeUnicode(String unescaped) {
+		return UNICODE_PATTERN.matcher(unescaped)
+				.replaceAll(r -> String.valueOf((char) Integer.parseInt(r.group(1), 16)));
+	}
+
+	private String removeWiteSpaceAndUnescapeUnicodeFromString(String jsonString) {
+		String allWhitespace = "\\s";
+		String replaced = jsonString.replaceAll(allWhitespace, "");
+		return unescapeUnicode(replaced);
 	}
 
 	private String recreateJsonStringFromJsonValue(JsonValue jsonValue) {

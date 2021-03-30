@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Uppsala University Library
+ * Copyright 2015, 2021 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -19,16 +19,19 @@
 
 package se.uu.ub.cora.json.parser.org;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
 import se.uu.ub.cora.json.parser.JsonArray;
 import se.uu.ub.cora.json.parser.JsonObject;
 import se.uu.ub.cora.json.parser.JsonParseException;
 import se.uu.ub.cora.json.parser.JsonParser;
+import se.uu.ub.cora.json.parser.JsonString;
 import se.uu.ub.cora.json.parser.JsonValue;
 import se.uu.ub.cora.json.parser.JsonValueType;
-
-import static org.testng.Assert.assertTrue;
 
 public class OrgJsonParserTest {
 	private JsonParser jsonParser;
@@ -66,6 +69,22 @@ public class OrgJsonParserTest {
 	public void testObjectCreateWithSpaceInValue() {
 		JsonValue jsonValue = jsonParser.parseString("{\"id\":\"This is a value with space\"}");
 		assertTrue(jsonValue instanceof JsonObject);
+	}
+
+	@Test
+	public void testObjectCreateWithProblematicValue() {
+		String enDash = "–";
+		JsonValue jsonValue = jsonParser.parseString("{\"id\":\"" + enDash + "\"}");
+		assertTrue(jsonValue instanceof JsonObject);
+		assertEquals(((JsonObject) jsonValue).getValueAsJsonString("id").getStringValue(), enDash);
+	}
+
+	@Test(enabled = false)
+	public void testObjectCreateWithProblematicValue2() {
+		JsonValue jsonValue = jsonParser.parseString("{\"id\":\"\\u2013\"}");
+		assertTrue(jsonValue instanceof JsonObject);
+		JsonString valueAsJsonString = ((JsonObject) jsonValue).getValueAsJsonString("id");
+		assertEquals(valueAsJsonString.getStringValue(), "\\u2013");
 	}
 
 	@Test
