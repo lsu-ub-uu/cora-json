@@ -33,6 +33,7 @@ import se.uu.ub.cora.json.parser.JsonValueType;
 
 public class OrgJsonParser implements JsonParser {
 
+	private static final int HEXADECIMAL_RADIX = 16;
 	private static final String UNABLE_TO_PARSE_JSON_STRING = "Unable to parse json string";
 	private static final Pattern UNICODE_PATTERN = Pattern.compile("\\\\u([0-9A-Fa-f]{4})");
 
@@ -80,8 +81,8 @@ public class OrgJsonParser implements JsonParser {
 	}
 
 	private String unescapeUnicode(String unescaped) {
-		return UNICODE_PATTERN.matcher(unescaped)
-				.replaceAll(r -> String.valueOf((char) Integer.parseInt(r.group(1), 16)));
+		return UNICODE_PATTERN.matcher(unescaped).replaceAll(
+				r -> String.valueOf((char) Integer.parseInt(r.group(1), HEXADECIMAL_RADIX)));
 	}
 
 	private String removeWiteSpaceAndUnescapeUnicodeFromString(String jsonString) {
