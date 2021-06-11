@@ -22,6 +22,9 @@ package se.uu.ub.cora.json.parser;
 import java.util.Map.Entry;
 import java.util.Set;
 
+/**
+ * An JsonObject represents a json object that is an unordered set of name/value pairs.
+ */
 public interface JsonObject extends JsonValue {
 
 	JsonValue getValue(String key);

@@ -19,6 +19,9 @@
 
 package se.uu.ub.cora.json.parser;
 
+/**
+ * A JsonArray represents an json array that is an ordered collection of values.
+ */
 public interface JsonArray extends JsonValue, Iterable<JsonValue> {
 
 	JsonValue getValue(int index);

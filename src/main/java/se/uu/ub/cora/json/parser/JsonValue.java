@@ -19,6 +19,16 @@
 
 package se.uu.ub.cora.json.parser;
 
+/**
+ * JsonValue is an interface for objects representing a possible json value. This value can
+ * represent a singular value such as a string but also more complex values such as arrays or
+ * objects.
+ */
 public interface JsonValue {
+	/**
+	 * getValueType returns this JsonValues data type as a {@link JsonValueType}.
+	 * 
+	 * @return A {@link JsonValueType} with this JsonValues value type.
+	 */
 	JsonValueType getValueType();
 }

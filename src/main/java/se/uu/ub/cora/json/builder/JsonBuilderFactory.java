@@ -19,10 +19,23 @@
 
 package se.uu.ub.cora.json.builder;
 
+/**
+ * JsonBuilderFactory is an interface used to factor Json builders
+ */
 public interface JsonBuilderFactory {
 
+	/**
+	 * createObjectBuilder returns an implementation of a {@link JsonObjectBuilder}
+	 * 
+	 * @return a new instance of a JsonObjectBuilder
+	 */
 	JsonObjectBuilder createObjectBuilder();
 
+	/**
+	 * createArrayBuilder returns an implementation of a {@link JsonArrayBuilder}
+	 * 
+	 * @return a new instance of a JsonArrayBuilder
+	 */
 	JsonArrayBuilder createArrayBuilder();
 
 }

@@ -22,17 +22,64 @@ package se.uu.ub.cora.json.builder;
 
 import se.uu.ub.cora.json.parser.JsonArray;
 
+/**
+ * JsonArrayBuilder is an interface for classes that build {@link JsonArray}
+ */
 public interface JsonArrayBuilder {
 
+	/**
+	 * addKeyString adds a String value to this JsonObjectBuilder using the specified key (name)
+	 * 
+	 * @param key
+	 *            A String name to store the value under in the builder
+	 * @param value
+	 *            A String value to store under the given key (name)
+	 */
 	void addString(String value);
 
+	/**
+	 * addKeyJsonObjectBuilder adds a {@link JsonObjectBuilder} value to this JsonArrayBuilder using
+	 * the specified key (name)
+	 * 
+	 * @param key
+	 *            A String name to store the value under in the builder
+	 * @param value
+	 *            A JsonObjectBuilder to store under the given key (name)
+	 */
 	void addJsonObjectBuilder(JsonObjectBuilder jsonObjectBuilder);
 
+	/**
+	 * addKeyJsonArrayBuilder adds a {@link JsonArrayBuilder} value to this JsonArrayBuilder using
+	 * the specified key (name)
+	 * 
+	 * @param key
+	 *            A String name to store the value under in the builder
+	 * @param value
+	 *            A JsonArrayBuilder to store under the given key (name)
+	 */
 	void addJsonArrayBuilder(JsonArrayBuilder jsonArrayBuilder);
 
+	/**
+	 * toJsonArray return the {@link JsonArray} that is beeing constructed using this builder.
+	 * 
+	 * @return A {@link JsonArray} constructed using methods in this builder
+	 */
 	JsonArray toJsonArray();
 
+	/**
+	 * toJsonCompactFormat return a String with a json String representation of the array that is
+	 * beeing constructed using this builder using as little whitespace as possible.
+	 * 
+	 * @return A String with the json representation of the array.
+	 */
 	String toJsonFormattedString();
 
+	/**
+	 * toJsonFormattedPrettyString return a String with a json String representation of the array
+	 * that is beeing constructed using this builder using a text representation that is as readable
+	 * as possible, using whitespace and indentation to make the json more readable.
+	 * 
+	 * @return A String with the json representation of the array.
+	 */
 	String toJsonFormattedPrettyString();
 }

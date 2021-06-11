@@ -19,6 +19,36 @@
 
 package se.uu.ub.cora.json.parser;
 
+/**
+ * JsonValueType is an enum with the different types of values that a {@link JsonValue} can have
+ */
 public enum JsonValueType {
-	STRING, NUMBER, OBJECT, ARRAY, TRUE, FALSE, NULL
+	/**
+	 * An object is an unordered set of name/value pairs.
+	 */
+	OBJECT,
+	/**
+	 * An array is an ordered collection of values.
+	 */
+	ARRAY,
+	/**
+	 * A string is a sequence of zero or more characters
+	 */
+	STRING,
+	/**
+	 * A number represents a number
+	 */
+	NUMBER,
+	/**
+	 * true represents something that is true
+	 */
+	TRUE,
+	/**
+	 * fasle represents something that is false
+	 */
+	FALSE,
+	/**
+	 * null represents something that is not
+	 */
+	NULL
 }
