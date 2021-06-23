@@ -29,6 +29,8 @@ public interface JsonObjectBuilder {
 
 	/**
 	 * addKeyString adds a String value to this JsonObjectBuilder using the specified key (name)
+	 * <p>
+	 * If the value is null, then the key will be removed from the JSONObject if it is present.
 	 * 
 	 * @param key
 	 *            A String name to store the value under in the builder
@@ -40,6 +42,8 @@ public interface JsonObjectBuilder {
 	/**
 	 * addKeyJsonObjectBuilder adds a {@link JsonObjectBuilder} value to this JsonObjectBuilder
 	 * using the specified key (name)
+	 * <p>
+	 * If the value is null, then the key will be removed from the JSONObject if it is present.
 	 * 
 	 * @param key
 	 *            A String name to store the value under in the builder
@@ -51,6 +55,8 @@ public interface JsonObjectBuilder {
 	/**
 	 * addKeyJsonArrayBuilder adds a {@link JsonArrayBuilder} value to this JsonObjectBuilder using
 	 * the specified key (name)
+	 * <p>
+	 * If the value is null, then the key will be removed from the JSONObject if it is present.
 	 * 
 	 * @param key
 	 *            A String name to store the value under in the builder
