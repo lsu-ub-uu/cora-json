@@ -88,6 +88,14 @@ public class OrgJsonParserTest {
 	}
 
 	@Test
+	public void testObjectCreateWithProblematicValueJsonHtml() {
+		String enDash = "<p>hello</p>";
+		JsonValue jsonValue = jsonParser.parseString("{\"id\":\"" + enDash + "\"}");
+		assertTrue(jsonValue instanceof JsonObject);
+		assertEquals(((JsonObject) jsonValue).getValueAsJsonString("id").getStringValue(), enDash);
+	}
+
+	@Test
 	public void testObjectGetValueType() {
 		JsonValue jsonValue = jsonParser.parseString("{\"id\":\"value\"}");
 		assertTrue(JsonValueType.OBJECT.equals(jsonValue.getValueType()));
