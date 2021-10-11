@@ -19,16 +19,17 @@
 
 package se.uu.ub.cora.json.parser.org;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+
 import org.testng.annotations.Test;
+
 import se.uu.ub.cora.json.parser.JsonArray;
 import se.uu.ub.cora.json.parser.JsonObject;
 import se.uu.ub.cora.json.parser.JsonParseException;
 import se.uu.ub.cora.json.parser.JsonString;
 import se.uu.ub.cora.json.parser.JsonValue;
 import se.uu.ub.cora.json.parser.JsonValueType;
-
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
 public class OrgJsonArrayAdapterTest {
 	@Test
@@ -129,5 +130,18 @@ public class OrgJsonArrayAdapterTest {
 		}
 		assertEquals(((JsonString) afterIterator).getStringValue(), "value2");
 		assertEquals(counter, 2);
+	}
+
+	@Test
+	public void testParseHTML() {
+
+		String htmlValue = "<p>Hello</p>";
+		String htmlValue2 = "<em><b> some paragraf </b></em>";
+		JsonArray jsonArray = parseStringAsJsonArray(
+				"[\"" + htmlValue + "\",\"" + htmlValue2 + "\"]");
+
+		String jsonArrayString = jsonArray.toJsonFormattedString();
+
+		assertEquals(jsonArrayString, "[\"<p>Hello</p>\",\"<em><b> some paragraf </b></em>\"]");
 	}
 }

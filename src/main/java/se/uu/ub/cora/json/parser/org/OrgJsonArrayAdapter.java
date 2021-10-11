@@ -101,7 +101,10 @@ public final class OrgJsonArrayAdapter implements JsonArray {
 
 	@Override
 	public String toJsonFormattedString() {
-		return orgJsonArray.toString();
+		return replaceScapedSlash(orgJsonArray.toString());
 	}
 
+	private String replaceScapedSlash(String text) {
+		return text.replace("<\\/", "</");
+	}
 }

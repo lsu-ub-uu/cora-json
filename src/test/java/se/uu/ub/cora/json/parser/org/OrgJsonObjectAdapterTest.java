@@ -19,21 +19,22 @@
 
 package se.uu.ub.cora.json.parser.org;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
+
 import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Set;
 
 import org.testng.annotations.Test;
+
 import se.uu.ub.cora.json.parser.JsonArray;
 import se.uu.ub.cora.json.parser.JsonObject;
 import se.uu.ub.cora.json.parser.JsonParseException;
 import se.uu.ub.cora.json.parser.JsonString;
 import se.uu.ub.cora.json.parser.JsonValue;
 import se.uu.ub.cora.json.parser.JsonValueType;
-
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
 
 public class OrgJsonObjectAdapterTest {
 	@Test
@@ -165,5 +166,20 @@ public class OrgJsonObjectAdapterTest {
 	public void testSize() {
 		JsonObject jsonObject = parseStringAsJsonObject("{\"id\":\"value\",\"id2\":\"value2\"}");
 		assertEquals(jsonObject.size(), 2);
+	}
+
+	@Test
+	public void testParseHTMLtags() throws Exception {
+		String htmlValue = "<p> some paragraf </p>";
+		JsonObject jsonObject = parseStringAsJsonObject("{\"id\":\"" + htmlValue + "\"}");
+		assertEquals(jsonObject.toJsonFormattedString(), "{\"id\":\"<p> some paragraf </p>\"}");
+	}
+
+	@Test
+	public void testParseHTMLtags2() throws Exception {
+		String htmlValue = "<em><b> some paragraf </b></em>";
+		JsonObject jsonObject = parseStringAsJsonObject("{\"id\":\"" + htmlValue + "\"}");
+		assertEquals(jsonObject.toJsonFormattedString(),
+				"{\"id\":\"<em><b> some paragraf </b></em>\"}");
 	}
 }

@@ -119,6 +119,10 @@ public final class OrgJsonObjectAdapter implements JsonObject {
 
 	@Override
 	public String toJsonFormattedString() {
-		return orgJsonObject.toString();
+		return replaceScapedSlash(orgJsonObject.toString());
+	}
+
+	private String replaceScapedSlash(String text) {
+		return text.replace("<\\/", "</");
 	}
 }

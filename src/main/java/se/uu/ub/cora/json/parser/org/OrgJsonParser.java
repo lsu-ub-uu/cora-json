@@ -88,7 +88,7 @@ public class OrgJsonParser implements JsonParser {
 	private String removeWiteSpaceAndUnescapeUnicodeFromString(String jsonString) {
 		String allWhitespace = "\\s";
 		String replaced = jsonString.replaceAll(allWhitespace, "");
-		return replaceScapedSlash(unescapeUnicode(replaced));
+		return unescapeUnicode(replaced);
 	}
 
 	private String recreateJsonStringFromJsonValue(JsonValue jsonValue) {
@@ -99,10 +99,6 @@ public class OrgJsonParser implements JsonParser {
 			recreatedJsonString = ((JsonArray) jsonValue).toJsonFormattedString();
 		}
 		return recreatedJsonString;
-	}
-
-	private String replaceScapedSlash(String text) {
-		return text.replace("\\/", "/");
 	}
 
 	@Override
