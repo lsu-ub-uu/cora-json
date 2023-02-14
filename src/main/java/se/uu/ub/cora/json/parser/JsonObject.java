@@ -31,6 +31,14 @@ public interface JsonObject extends JsonValue {
 
 	JsonString getValueAsJsonString(String key);
 
+	/**
+	 * Returns the requested json object if found in the json. If the object is not found an
+	 * excpetion {@link JsonParseException} MUST be thrwon
+	 * 
+	 * @param name
+	 *            of the json object that we want to fetch
+	 * @return
+	 */
 	JsonObject getValueAsJsonObject(String key);
 
 	JsonArray getValueAsJsonArray(String key);
