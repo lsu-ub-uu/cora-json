@@ -144,6 +144,13 @@ public class OrgJsonObjectAdapterTest {
 	}
 
 	@Test
+	public void testRemoveKey() {
+		JsonObject jsonObject = parseStringAsJsonObject("{\"id\":\"value\"}");
+		jsonObject.removeKey("id");
+		assertFalse(jsonObject.containsKey("id"));
+	}
+
+	@Test
 	public void testKeySet() {
 		JsonObject jsonObject = parseStringAsJsonObject("{\"id\":\"value\"}");
 		Set<String> keySet = jsonObject.keySet();

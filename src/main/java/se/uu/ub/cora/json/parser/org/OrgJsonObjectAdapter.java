@@ -97,6 +97,11 @@ public final class OrgJsonObjectAdapter implements JsonObject {
 	}
 
 	@Override
+	public void removeKey(String key) {
+		orgJsonObject.remove(key);
+	}
+
+	@Override
 	public Set<String> keySet() {
 		return orgJsonObject.keySet();
 	}

@@ -52,4 +52,6 @@ public interface JsonObject extends JsonValue {
 	int size();
 
 	String toJsonFormattedString();
+
+	void removeKey(String key);
 }
